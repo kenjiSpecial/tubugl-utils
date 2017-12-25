@@ -17,7 +17,6 @@ return the index array of wireframe from index array of face
 
 ```js
 clamp(value, min, max) 
-
 ```
 
 Clamps the value to be between min and max.
