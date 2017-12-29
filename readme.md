@@ -21,6 +21,12 @@ clamp(value, min, max)
 
 Clamps the value to be between min and max.
 
+```js
+randomFloat( min, max) 
+```
+
+Clamps the value to be between min and max.
+
 ## Referrences
 
 https://threejs.org/docs/#api/math/Math
