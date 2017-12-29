@@ -1,6 +1,6 @@
 {
   "name": "tubugl-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "utility function for tubugl",
   "main": "index.js",
   "license": "MIT",
