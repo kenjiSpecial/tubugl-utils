@@ -20,3 +20,14 @@ export function randomFloat(minValue, maxValue) {
 	let value = minValue + (maxValue - minValue) * Math.random();
 	return value;
 }
+
+/**
+ * mix — linearly interpolate between two values
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {number} a
+ */
+export function mix(x, y, a) {
+	return x * (1 - a) + y * a;
+}
