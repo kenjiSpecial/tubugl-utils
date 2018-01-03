@@ -3,7 +3,7 @@
  * @param {Uint16Array} indices
  */
 
-export function generateWireframeIndices(indices) {
+export function generateWireframeIndices(indices, isUint16Array = true) {
 	let wireframeIndices = [];
 
 	for (let ii = 0; ii < indices.length / 3; ii++) {
@@ -17,6 +17,6 @@ export function generateWireframeIndices(indices) {
 		wireframeIndices.push(indices[3 * ii]);
 	}
 
-	wireframeIndices = new Uint16Array(wireframeIndices);
+	wireframeIndices = isUint16Array ? new Uint16Array(wireframeIndices) : new Uint32Array(wireframeIndices);
 	return wireframeIndices;
 }
