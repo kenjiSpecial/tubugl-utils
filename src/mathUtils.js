@@ -1,4 +1,7 @@
-import { glMatrix, mat4 } from 'gl-matrix';
+import {
+	glMatrix,
+	mat4
+} from 'gl-matrix';
 
 /**
  *
@@ -32,6 +35,16 @@ export function randomFloat(minValue, maxValue) {
  */
 export function mix(x, y, a) {
 	return x * (1 - a) + y * a;
+}
+
+export function degToRad(value) {
+	// Math.PI / 180 = 0.017453292519943295
+	return value * 0.017453292519943295;
+}
+
+export function radToDeg(value) {
+	// 180 / Math.PI = 57.29577951308232
+	return 57.29577951308232 * value;
 }
 
 /**
