@@ -21,13 +21,7 @@ export function generateWireframeIndices(indices, isUint16Array = true) {
 	return wireframeIndices;
 }
 
-/**
- * load json file
- *
- * @param {string} fileDir
- * @param {string} callback
- */
-export function loadJSON(fileDir, callback) {
+function loadJSON(callback) {
 	var xobj = new XMLHttpRequest();
 	xobj.overrideMimeType('application/json');
 	xobj.open('GET', 'my_data.json', true); // Replace 'my_data' with the path to your file

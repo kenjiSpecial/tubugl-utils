@@ -23,7 +23,6 @@ export function generateWireframeIndices(indices, isUint16Array = true) {
 
 /**
  * load json file
- *
  * @param {string} fileDir
  * @param {string} callback
  */
