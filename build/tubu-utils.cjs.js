@@ -1,7 +1,33 @@
-import {
-	glMatrix,
-	mat4
-} from 'gl-matrix';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var glMatrix = require('gl-matrix');
+
+/**
+ * generate indices for wireframe of geometry indices
+ * @param {Uint16Array} indices
+ */
+
+function generateWireframeIndices(indices) {
+	var isUint16Array = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+	var wireframeIndices = [];
+
+	for (var ii = 0; ii < indices.length / 3; ii++) {
+		wireframeIndices.push(indices[3 * ii]);
+		wireframeIndices.push(indices[3 * ii + 1]);
+
+		wireframeIndices.push(indices[3 * ii + 1]);
+		wireframeIndices.push(indices[3 * ii + 2]);
+
+		wireframeIndices.push(indices[3 * ii + 2]);
+		wireframeIndices.push(indices[3 * ii]);
+	}
+
+	wireframeIndices = isUint16Array ? new Uint16Array(wireframeIndices) : new Uint32Array(wireframeIndices);
+	return wireframeIndices;
+}
 
 /**
  *
@@ -9,7 +35,7 @@ import {
  * @param {number} min
  * @param {number} max
  */
-export function clamp(value, min, max) {
+function clamp(value, min, max) {
 	return Math.max(min, Math.min(max, value));
 }
 
@@ -21,8 +47,8 @@ export function clamp(value, min, max) {
  *
  * @return{number}
  */
-export function randomFloat(minValue, maxValue) {
-	let value = minValue + (maxValue - minValue) * Math.random();
+function randomFloat(minValue, maxValue) {
+	var value = minValue + (maxValue - minValue) * Math.random();
 	return value;
 }
 
@@ -33,16 +59,16 @@ export function randomFloat(minValue, maxValue) {
  * @param {number} y
  * @param {number} a
  */
-export function mix(x, y, a) {
+function mix(x, y, a) {
 	return x * (1 - a) + y * a;
 }
 
-export function degToRad(value) {
+function degToRad(value) {
 	// Math.PI / 180 = 0.017453292519943295
 	return value * 0.017453292519943295;
 }
 
-export function radToDeg(value) {
+function radToDeg(value) {
 	// 180 / Math.PI = 57.29577951308232
 	return 57.29577951308232 * value;
 }
@@ -59,24 +85,29 @@ export function radToDeg(value) {
  * @param {vec3} up vec3 pointing up
  * @returns {mat4} out
  */
-export function lookAtCustom(out, eye, center, up) {
-	let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
-	let eyex = eye[0];
-	let eyey = eye[1];
-	let eyez = eye[2];
-	let upx = up[0];
-	let upy = up[1];
-	let upz = up[2];
-	let centerx = center[0];
-	let centery = center[1];
-	let centerz = center[2];
+function lookAtCustom(out, eye, center, up) {
+	var x0 = void 0,
+	    x1 = void 0,
+	    x2 = void 0,
+	    y0 = void 0,
+	    y1 = void 0,
+	    y2 = void 0,
+	    z0 = void 0,
+	    z1 = void 0,
+	    z2 = void 0,
+	    len = void 0;
+	var eyex = eye[0];
+	var eyey = eye[1];
+	var eyez = eye[2];
+	var upx = up[0];
+	var upy = up[1];
+	var upz = up[2];
+	var centerx = center[0];
+	var centery = center[1];
+	var centerz = center[2];
 
-	if (
-		Math.abs(eyex - centerx) < glMatrix.EPSILON &&
-		Math.abs(eyey - centery) < glMatrix.EPSILON &&
-		Math.abs(eyez - centerz) < glMatrix.EPSILON
-	) {
-		return mat4.identity(out);
+	if (Math.abs(eyex - centerx) < glMatrix.glMatrix.EPSILON && Math.abs(eyey - centery) < glMatrix.glMatrix.EPSILON && Math.abs(eyez - centerz) < glMatrix.glMatrix.EPSILON) {
+		return glMatrix.mat4.identity(out);
 	}
 
 	z0 = eyex - centerx;
@@ -159,3 +190,15 @@ export function lookAtCustom(out, eye, center, up) {
 
 	return out;
 }
+
+var mathUtils = /*#__PURE__*/Object.freeze({
+	clamp: clamp,
+	randomFloat: randomFloat,
+	mix: mix,
+	degToRad: degToRad,
+	radToDeg: radToDeg,
+	lookAtCustom: lookAtCustom
+});
+
+exports.mathUtils = mathUtils;
+exports.generateWireframeIndices = generateWireframeIndices;

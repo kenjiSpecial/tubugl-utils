@@ -1,7 +1,27 @@
-import {
-	glMatrix,
-	mat4
-} from 'gl-matrix';
+import { glMatrix, mat4 } from 'gl-matrix';
+
+/**
+ * generate indices for wireframe of geometry indices
+ * @param {Uint16Array} indices
+ */
+
+function generateWireframeIndices(indices, isUint16Array = true) {
+	let wireframeIndices = [];
+
+	for (let ii = 0; ii < indices.length / 3; ii++) {
+		wireframeIndices.push(indices[3 * ii]);
+		wireframeIndices.push(indices[3 * ii + 1]);
+
+		wireframeIndices.push(indices[3 * ii + 1]);
+		wireframeIndices.push(indices[3 * ii + 2]);
+
+		wireframeIndices.push(indices[3 * ii + 2]);
+		wireframeIndices.push(indices[3 * ii]);
+	}
+
+	wireframeIndices = isUint16Array ? new Uint16Array(wireframeIndices) : new Uint32Array(wireframeIndices);
+	return wireframeIndices;
+}
 
 /**
  *
@@ -9,7 +29,7 @@ import {
  * @param {number} min
  * @param {number} max
  */
-export function clamp(value, min, max) {
+function clamp(value, min, max) {
 	return Math.max(min, Math.min(max, value));
 }
 
@@ -21,7 +41,7 @@ export function clamp(value, min, max) {
  *
  * @return{number}
  */
-export function randomFloat(minValue, maxValue) {
+function randomFloat(minValue, maxValue) {
 	let value = minValue + (maxValue - minValue) * Math.random();
 	return value;
 }
@@ -33,16 +53,16 @@ export function randomFloat(minValue, maxValue) {
  * @param {number} y
  * @param {number} a
  */
-export function mix(x, y, a) {
+function mix(x, y, a) {
 	return x * (1 - a) + y * a;
 }
 
-export function degToRad(value) {
+function degToRad(value) {
 	// Math.PI / 180 = 0.017453292519943295
 	return value * 0.017453292519943295;
 }
 
-export function radToDeg(value) {
+function radToDeg(value) {
 	// 180 / Math.PI = 57.29577951308232
 	return 57.29577951308232 * value;
 }
@@ -59,7 +79,7 @@ export function radToDeg(value) {
  * @param {vec3} up vec3 pointing up
  * @returns {mat4} out
  */
-export function lookAtCustom(out, eye, center, up) {
+function lookAtCustom(out, eye, center, up) {
 	let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
 	let eyex = eye[0];
 	let eyey = eye[1];
@@ -159,3 +179,14 @@ export function lookAtCustom(out, eye, center, up) {
 
 	return out;
 }
+
+var mathUtils = /*#__PURE__*/Object.freeze({
+	clamp: clamp,
+	randomFloat: randomFloat,
+	mix: mix,
+	degToRad: degToRad,
+	radToDeg: radToDeg,
+	lookAtCustom: lookAtCustom
+});
+
+export { mathUtils, generateWireframeIndices };

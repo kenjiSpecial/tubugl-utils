@@ -1,4 +1,4 @@
-import { clamp, randomFloat } from './mathUtils';
+import { clamp, randomFloat, mix } from './mathUtils';
 
 test('test randomFloat', () => {
 	let rand = randomFloat(10, 20);
@@ -15,4 +15,9 @@ test('test clamp', () => {
 
 	let val2 = clamp(7, 4, 6);
 	expect(val2).toEqual(6);
+});
+
+test('test mix', () => {
+	let val = mix(1, 3, 0.5);
+	expect(val).toEqual(2);
 });
